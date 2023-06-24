@@ -1,4 +1,4 @@
-const pg = requre('pg')
+const pg = require('pg')
 
 const localDbName = 'holiday_app'
 
