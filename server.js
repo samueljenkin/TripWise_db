@@ -39,7 +39,7 @@ app.post('/api/sessions', (req, res) => {
 
                 if (user && isValidPassword) {
                     req.session.userId = user.id
-                    res.json(user.email)
+                    res.json(user)
                 }
             }
         })
