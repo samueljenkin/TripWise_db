@@ -16,9 +16,7 @@ const port = process.env.PORT || 3001
 // start web server
 app.listen(port, () => console.log(`Server is listening here: http://localhost:${port}`))
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}))
+app.use(cors({ origin: 'http://localhost:3000' }))
 app.use(express.json())
 app.use(sessions)
 
