@@ -6,4 +6,4 @@ CREATE TABLE users(
     name TEXT,
     email TEXT,
     password_digest TEXT
-)
+);

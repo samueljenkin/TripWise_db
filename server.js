@@ -11,10 +11,10 @@ const sessions = require('./middlewares/sessions')
 // const sessionsController = require('./controllers/sessions_controller')
 
 const app = express()
-const PORT = 3001
+const port = process.env.PORT || 3001
 
 // start web server
-app.listen(PORT, () => console.log(`Server is listening here: http://localhost:${PORT}`))
+app.listen(port, () => console.log(`Server is listening here: http://localhost:${port}`))
 
 app.use(cors({
     origin: 'http://localhost:3000'
@@ -80,6 +80,14 @@ app.post('/api/users', (req, res) => {
         })
 })
 
+if (process.env.NODE_ENV === 'production') {
+    const path = require('path')
+    app.use(express.static(path.join(__dirname, 'build')));
+  
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}
 
 // app.use('api/users', usersController)
 // app.use('api/sessions', sessionsController)
