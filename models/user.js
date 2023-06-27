@@ -25,7 +25,7 @@ const User = {
 
     create: (name, email, passwordDigest) => {
         const sql = `
-            INSERT INTO users(name, email, password_digest)
+            INSERT INTO users(username, email, password_digest)
             VALUES ($1, $2, $3)
             RETURNING *
         `

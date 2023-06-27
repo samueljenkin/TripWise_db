@@ -3,7 +3,7 @@ CREATE DATABASE holiday_app;
 
 CREATE TABLE users(
     id serial PRIMARY KEY,
-    name TEXT,
+    username TEXT,
     email TEXT,
     password_digest TEXT
 );
