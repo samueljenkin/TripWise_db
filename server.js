@@ -22,8 +22,9 @@ app.use(sessions)
 
 // models
 const User = require('./models/user')
+const Attraction = require('./models/attraction')
 
-// routes
+// routes - sessions
 app.post('/api/sessions', (req, res) => {
     const { email, password } = req.body
 
@@ -66,6 +67,7 @@ app.delete('/api/sessions', (req, res) => {
     })
 })
 
+// routes - users
 app.post('/api/users', (req, res) => {
     const { name, email, password } = req.body
     const passwordDigest = bcrypt.hashSync(password, bcrypt.genSaltSync(12), null)
@@ -76,6 +78,16 @@ app.post('/api/users', (req, res) => {
             req.session.userId = user.id
             res.json(user)
         })
+})
+
+// routes - sessions
+app.post('/api/attractions', (req, res) => {
+    const userId = req.session.userId
+    const { displayName, websiteUri, priceLevel, rating } = req.body
+    
+    Attraction
+        .create(userId, displayName.text, websiteUri, priceLevel, rating)
+        .then(attraction => res.json(attraction))
 })
 
 if (process.env.NODE_ENV === 'production') {
