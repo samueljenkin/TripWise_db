@@ -80,14 +80,22 @@ app.post('/api/users', (req, res) => {
         })
 })
 
-// routes - sessions
+// routes - attractions
 app.post('/api/attractions', (req, res) => {
     const userId = req.session.userId
     const { displayName, websiteUri, priceLevel, rating } = req.body
     
     Attraction
-        .create(userId, displayName.text, websiteUri, priceLevel, rating)
+        .addAttraction(userId, displayName.text, websiteUri, priceLevel, rating)
         .then(attraction => res.json(attraction))
+})
+
+app.get('/api/attractions', (req, res) => {
+    const userId = req.session.userId
+
+    Attraction
+        .getAttractions(userId)
+        .then(attractions => res.json(attractions))
 })
 
 if (process.env.NODE_ENV === 'production') {
