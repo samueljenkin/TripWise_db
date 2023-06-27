@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const router = express.Router()
+// const router = express.Router()
 const bcrypt = require('bcrypt')
 
 // middlewares
@@ -83,10 +83,10 @@ app.post('/api/users', (req, res) => {
 // routes - attractions
 app.post('/api/attractions', (req, res) => {
     const userId = req.session.userId
-    const { displayName, websiteUri, priceLevel, rating } = req.body
+    const { tripId, displayName, websiteUri, priceLevel, rating } = req.body
     
     Attraction
-        .addAttraction(userId, displayName.text, websiteUri, priceLevel, rating)
+        .addAttraction(userId, tripId, displayName.text, websiteUri, priceLevel, rating)
         .then(attraction => res.json(attraction))
 })
 

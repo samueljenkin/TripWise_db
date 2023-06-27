@@ -1,15 +1,15 @@
 const db = require('../db/db')
 
 const Attraction = {
-    addAttraction: (userId, displayName, websiteUri, priceLevel, rating) => {
+    addAttraction: (userId, tripId, displayName, websiteUri, priceLevel, rating) => {
         const sql = `
-            INSERT INTO attractions(user_id, display_name, website_uri, price_level, rating)
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO attractions(user_id, trip_id, display_name, website_uri, price_level, rating)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *
         `
 
         return db
-            .query(sql, [userId, displayName, websiteUri, priceLevel, rating])
+            .query(sql, [userId, tripId, displayName, websiteUri, priceLevel, rating])
             .then(dbRes => dbRes.rows[0])
     },
 
