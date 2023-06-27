@@ -98,6 +98,68 @@ app.get('/api/attractions', (req, res) => {
         .then(attractions => res.json(attractions))
 })
 
+app.post('/api/google', (req, res) => {
+    const { location } = req.body
+    const openCageApiKey = process.env.OPEN_CAGE_API_KEY
+    const googlePlacesApiKey = process.env.GOOGLE_PLACES_API_KEY
+    const googlePlacesUrl = process.env.GOOGLE_PLACES_URL
+
+    const getLocation = async location => {
+        const res = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${openCageApiKey}`)
+        const locationData = await res.json()
+        const latAndLong = locationData.results[0].geometry
+        return latAndLong
+    }
+    
+    const getAttractions = async ({ lat, lng }) => {
+        const location = {
+            latitude: lat,
+            longitude: lng
+          }
+          
+          const textQuery = 'attractions'
+          const languageCode = 'en'
+          const includedType = 'tourist_attraction'
+          const priceLevels = ['INEXPENSIVE', 'MODERATE', 'EXPENSIVE', 'VERY_EXPENSIVE']
+    
+          const request = {
+            textQuery,
+            languageCode,
+            includedType,
+            priceLevels,
+            locationBias: {
+              circle: {
+                center: location,
+                radius: 1000 // Radius in meters
+              }
+            }
+          }
+          
+          const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Goog-Api-Key': googlePlacesApiKey,
+              'X-Goog-FieldMask': 'places.displayName,places.priceLevel,places.websiteUri,places.rating,places.reviews'
+            },
+            body: JSON.stringify(request)
+          }
+          
+          return fetch(googlePlacesUrl, options)
+            .then(response => response.json())
+            .then(data => data.places)
+            .catch(error => {
+              // Handle any errors here
+              console.error(error)
+            })
+    }
+
+
+    getLocation(location)
+        .then(location => getAttractions(location))
+        .then(locationData => res.json(locationData))
+})
+
 if (process.env.NODE_ENV === 'production') {
     const path = require('path')
     app.use(express.static(path.join(__dirname, 'build')));
