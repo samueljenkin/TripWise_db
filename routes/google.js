@@ -54,6 +54,10 @@ router.post('/', (req, res) => {
     return fetch(GOOGLE_PLACES_URL, options)
       .then(response => response.json())
       .then(data => data.places)
+      .catch(error => {
+        console.error('Error during API request:', error)
+        throw error
+      })
   }
 
   getLocation(location)
