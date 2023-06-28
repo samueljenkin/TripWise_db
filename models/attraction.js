@@ -1,7 +1,7 @@
 const db = require('../db/db')
 
 const Attraction = {
-    addAttraction: (userId, tripId, displayName, websiteUri, priceLevel, rating) => {
+    saveAttraction: (userId, tripId, displayName, websiteUri, priceLevel, rating) => {
         const sql = `
             INSERT INTO attractions(user_id, trip_id, display_name, website_uri, price_level, rating)
             VALUES ($1, $2, $3, $4, $5, $6)
@@ -13,7 +13,7 @@ const Attraction = {
             .then(dbRes => dbRes.rows[0])
     },
 
-    getAttractions: (userId) => {
+    getSavedAttractions: userId => {
         const sql = `SELECT * FROM attractions WHERE user_id = $1`
 
         return db

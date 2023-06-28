@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
         : false
 
       if (!user || !email || !password || !validPassword) {
-        res.status(400).json({ error: 'Incorrect email/password. Please try again.' })
+        res.json({ error: 'Incorrect email/password. Please try again.' })
       } else {
         req.session.userId = user.id
         res.json(user)
@@ -35,14 +35,7 @@ router.post('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
-  req.session.destroy(error => {
-    if (error) {
-      res.status(400).json({ error: 'failed to log out' })
-    } else {
-      res.clearCookie('user_sid')
-      res.json({ message: 'success' })
-    }
-  })
+  req.session.destroy(() => res.clearCookie('user_sid'))
 })
 
 module.exports = router
