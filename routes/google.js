@@ -14,14 +14,7 @@ router.post('/', (req, res) => {
 
     return fetch(OPEN_CAGE_URL)
       .then(res => res.json())
-      .then(data => {
-        console.log('data: ', data)
-        data.results[0].geometry
-      })
-      .catch(error => {
-        // Handle any errors here
-        console.error(error)
-      })
+      .then(data => data.results[0].geometry)
   }
   
   const getAttractions = ({ lat, lng }) => {
@@ -61,15 +54,17 @@ router.post('/', (req, res) => {
     return fetch(GOOGLE_PLACES_URL, options)
       .then(response => response.json())
       .then(data => data.places)
-      .catch(error => {
-        // Handle any errors here
-        console.error(error)
-      })
   }
 
   getLocation(location)
-    .then(coordinates => getAttractions(coordinates))
-    .then(attractions => res.json(attractions))
+    .then(coordinates => {
+      console.log('coordinates: ', coordinates)
+      getAttractions(coordinates)
+    })
+    .then(attractions => {
+      console.log('attractions: ', attractions)
+      res.json(attractions)
+    })
 })
 
 module.exports = router
