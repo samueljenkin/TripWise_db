@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const fetch = require('node-fetch')
 const { OPEN_CAGE_API_KEY, GOOGLE_PLACES_API_KEY, GOOGLE_PLACES_URL } = process.env
 
 router.post('/', (req, res) => {
