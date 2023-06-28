@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch')
 
-// require('dotenv').config()
-
 const { OPEN_CAGE_API_KEY, GOOGLE_PLACES_API_KEY, GOOGLE_PLACES_URL } = process.env
 
 router.post('/', (req, res) => {
@@ -15,6 +13,10 @@ router.post('/', (req, res) => {
     return fetch(OPEN_CAGE_URL)
       .then(res => res.json())
       .then(data => data.results[0].geometry)
+      .catch(error => {
+        console.error('Error during API request:', error)
+        throw error
+      })
   }
   
   const getAttractions = ({ lat, lng }) => {
@@ -53,10 +55,7 @@ router.post('/', (req, res) => {
         
     return fetch(GOOGLE_PLACES_URL, options)
       .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        return data.places
-      })
+      .then(data => data.places)
       .catch(error => {
         console.error('Error during API request:', error)
         throw error
