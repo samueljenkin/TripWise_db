@@ -53,7 +53,10 @@ router.post('/', (req, res) => {
         
     return fetch(GOOGLE_PLACES_URL, options)
       .then(response => response.json())
-      .then(data => data.places)
+      .then(data => {
+        console.log(data)
+        data.places
+      })
       .catch(error => {
         console.error('Error during API request:', error)
         throw error
@@ -61,14 +64,8 @@ router.post('/', (req, res) => {
   }
 
   getLocation(location)
-    .then(coordinates => {
-      console.log('coordinates: ', coordinates)
-      getAttractions(coordinates)
-    })
-    .then(attractions => {
-      console.log('attractions: ', attractions)
-      res.json(attractions)
-    })
+    .then(coordinates => getAttractions(coordinates))
+    .then(attractions => res.json(attractions))
 })
 
 module.exports = router
