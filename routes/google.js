@@ -6,6 +6,8 @@ const { OPEN_CAGE_API_KEY, GOOGLE_PLACES_API_KEY, GOOGLE_PLACES_URL } = process.
 router.post('/', (req, res) => {
   const { location } = req.body
 
+  console.log(location)
+
   const getLocation = location => {
     const OPEN_CAGE_URL = `https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${OPEN_CAGE_API_KEY}`
 
