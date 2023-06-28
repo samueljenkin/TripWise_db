@@ -21,15 +21,15 @@ router.post('/', (req, res) => {
   User
     .findByEmail(email)
     .then(user => {
-      if (!user || !email || !password) {
-        res.status(400).json({ error: 'email and/or password are incorrect' })
-      } else {
-        const isValidPassword = bcrypt.compareSync(password, user.password_digest)
+      const validPassword = user 
+        ? bcrypt.compareSync(password, user.password_digest)
+        : false
 
-        if (user && isValidPassword) {
-          req.session.userId = user.id
-          res.json(user)
-        }
+      if (!user || !email || !password || !validPassword) {
+        res.status(400).json({ error: 'Incorrect email/password. Please try again.' })
+      } else {
+        req.session.userId = user.id
+        res.json(user)
       }
     })
 })
