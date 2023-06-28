@@ -55,7 +55,7 @@ router.post('/', (req, res) => {
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        data.places
+        return data.places
       })
       .catch(error => {
         console.error('Error during API request:', error)
