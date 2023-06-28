@@ -9,9 +9,9 @@ router.get('/', (req, res) => {
   if (userId) {
     User
       .findById(userId)
-      .then(user => res.json({ user: user }))
+      .then(user => res.json(user.username))
   } else {
-    res.json({})
+    res.json(null)
   }
 })
 
@@ -21,10 +21,10 @@ router.post('/', (req, res) => {
   User
     .findByEmail(email)
     .then(user => {
-      if (!user || email == '' || password == '') {
+      if (!user || !email || !password) {
         res.status(400).json({ error: 'email and/or password are incorrect' })
       } else {
-      const isValidPassword = bcrypt.compareSync(password, user.password_digest)
+        const isValidPassword = bcrypt.compareSync(password, user.password_digest)
 
         if (user && isValidPassword) {
           req.session.userId = user.id

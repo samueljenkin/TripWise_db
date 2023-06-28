@@ -23,7 +23,7 @@ const User = {
             .then(dbRes => dbRes.rows[0])
     },
 
-    create: (name, email, passwordDigest) => {
+    create: (username, email, passwordDigest) => {
         const sql = `
             INSERT INTO users(username, email, password_digest)
             VALUES ($1, $2, $3)
@@ -31,7 +31,7 @@ const User = {
         `
 
         return db
-            .query(sql, [name, email, passwordDigest])
+            .query(sql, [username, email, passwordDigest])
             .then(dbRes => dbRes.rows[0])
     }
 }
