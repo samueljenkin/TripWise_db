@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.9761261a.css",
-    "main.js": "/static/js/main.aed7d204.js",
+    "main.css": "/static/css/main.cac7a6f7.css",
+    "main.js": "/static/js/main.2054ce8e.js",
     "static/js/787.17c6f57e.chunk.js": "/static/js/787.17c6f57e.chunk.js",
     "static/media/TripWise-Logo.png": "/static/media/TripWise-Logo.afbb4f31ece6dd0a3205.png",
     "index.html": "/index.html",
-    "main.9761261a.css.map": "/static/css/main.9761261a.css.map",
-    "main.aed7d204.js.map": "/static/js/main.aed7d204.js.map",
+    "main.cac7a6f7.css.map": "/static/css/main.cac7a6f7.css.map",
+    "main.2054ce8e.js.map": "/static/js/main.2054ce8e.js.map",
     "787.17c6f57e.chunk.js.map": "/static/js/787.17c6f57e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9761261a.css",
-    "static/js/main.aed7d204.js"
+    "static/css/main.cac7a6f7.css",
+    "static/js/main.2054ce8e.js"
   ]
 }
